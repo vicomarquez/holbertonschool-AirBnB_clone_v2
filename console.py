@@ -17,8 +17,9 @@ class HBNBCommand(cmd.Cmd):
     """this class is entry point of the command interpreter
     """
     prompt = "(hbnb) "
-    all_classes = {"BaseModel", "User", "State", "City",
-                   "Amenity", "Place", "Review"}
+    all_classes = {"BaseModel": BaseModel, "User": User, "State": State,
+                   "City": City, "Amenity": Amenity,
+                   "Place": Place, "Review": Review}
 
     def emptyline(self):
         """Ignores empty spaces"""
@@ -41,26 +42,34 @@ class HBNBCommand(cmd.Cmd):
         try:
             if not line:
                 raise SyntaxError()
-            my_list = line.split(" ")
-            print(my_list)
-            cls_name = my_list[0]
-            kwargs ={}
+            my_list = line.split(" ")  # split cmd line into list
+
+            if my_list:  # if list not empty
+                cls_name = my_list[0]  # extract class name
+            else:  # class name missing
+                raise SyntaxError()
+
+            kwargs = {}
+
             for pair in my_list[1:]:
                 k, v = pair.split("=")
-                if is_int(v):
+                if self.is_int(v):
                     kwargs[k] = int(v)
-                elif is_float(v):
+                elif self.is_float(v):
                     kwargs[k] = float(v)
                 else:
                     v = v.replace('_', ' ')
                     kwargs[k] = v.strip('"\'')
-            obj = eval("{}(**{})".format(cls_name, kwargs))
-            obj.save()
-            print("{}".format(obj.id))
-        except SyntaxError:
+
+            obj = self.all_classes[cls_name](**kwargs)
+            storage.new(obj)  # store new object
+            obj.save()  # save storage to file
+            print(obj.id)  # print id of created object class
+
+        except ImportError:
             print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
+#        except NameError:
+#            print("** class doesn't exist **")
 
     def do_show(self, line):
         """Prints the string representation of an instance
@@ -260,6 +269,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             cmd.Cmd.default(self, line)
 
+    @staticmethod
     def is_int(n):
         """ checks if integer"""
         try:
@@ -268,6 +278,7 @@ class HBNBCommand(cmd.Cmd):
         except ValueError:
             return False
 
+    @staticmethod
     def is_float(n):
         try:
             float(n)
