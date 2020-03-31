@@ -59,8 +59,8 @@ class HBNBCommand(cmd.Cmd):
             print("{}".format(obj.id))
         except SyntaxError:
             print("** class name missing **")
-#        except NameError:
-#            print("** class doesn't exist **")
+        except NameError:
+            print("** class doesn't exist **")
 
     def do_show(self, line):
         """Prints the string representation of an instance

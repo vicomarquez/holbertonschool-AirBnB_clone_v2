@@ -19,8 +19,9 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
-    all_classes = [BaseModel, User, State, City,
-                   Amenity, Place, Review]
+    all_classes = {'BaseModel': BaseModel, 'User': User,
+                   'State': State, 'City': City, 'Amenity': Amenity,
+                   'Place': Place, 'Review': Review}
 
     def all(self, cls=None):
         """returns a dictionary
@@ -33,10 +34,11 @@ class FileStorage:
         if cls in self.all_classes:
             # copy objects of cls to temp dict
             for key, val in self.__objects.items():
-                if key.split('.')[0] == cls:
+                print(key.split('.')[0])
+                if key.split('.')[0] == cls.__name__:
                     all_return.update({key: value})
         else:  # if cls is invalid or none
-            all_return = self.__objects
+            return self.__objects
 
         return all_return
 
