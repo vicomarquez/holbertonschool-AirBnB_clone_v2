@@ -34,7 +34,6 @@ class FileStorage:
         if cls in self.all_classes:
             # copy objects of cls to temp dict
             for key, val in self.__objects.items():
-                print(key.split('.')[0])
                 if key.split('.')[0] == cls.__name__:
                     all_return.update({key: value})
         else:  # if cls is invalid or none
