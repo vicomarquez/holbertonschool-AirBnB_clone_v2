@@ -42,7 +42,8 @@ class HBNBCommand(cmd.Cmd):
             if not line:
                 raise SyntaxError()
             my_list = line.split(" ")
-            new_obj = mylist[0]
+            print(my_list)
+            cls_name = my_list[0]
             kwargs ={}
             for pair in my_list[1:]:
                 k, v = pair.split("=")
@@ -53,13 +54,13 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     v = v.replace('_', ' ')
                     kwargs[k] = v.strip('"\'')
-            obj = eval("{}(**{})".format(new_obj, kwargs))
+            obj = eval("{}(**{})".format(cls_name, kwargs))
             obj.save()
             print("{}".format(obj.id))
         except SyntaxError:
             print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
+#        except NameError:
+#            print("** class doesn't exist **")
 
     def do_show(self, line):
         """Prints the string representation of an instance
