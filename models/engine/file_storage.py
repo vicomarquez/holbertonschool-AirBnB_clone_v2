@@ -31,13 +31,14 @@ class FileStorage:
         all_return = {}
 
         # if cls is valid
-        if cls in self.all_classes:
-            # copy objects of cls to temp dict
-            for key, val in self.__objects.items():
-                if key.split('.')[0] == cls.__name__:
-                    all_return.update({key: value})
-        else:  # if cls is invalid or none
-            return self.__objects
+        if cls:
+            if cls.__name__ in self.all_classes:
+                # copy objects of cls to temp dict
+                for key, val in self.__objects.items():
+                    if key.split('.')[0] == cls.__name__:
+                        all_return.update({key: val})
+        else:  # if cls is none
+            all_return = self.__objects
 
         return all_return
 
