@@ -3,6 +3,7 @@
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Float, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class Place(BaseModel, Base):
@@ -20,7 +21,7 @@ class Place(BaseModel, Base):
         longitude: longitude in float
         amenity_ids: list of Amenity ids
     """
-    if models.storage_type = 'db':
+    if models.storage_type == 'db':
         __tablename__ = 'places'
 
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)

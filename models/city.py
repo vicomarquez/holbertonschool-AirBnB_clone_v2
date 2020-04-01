@@ -13,7 +13,7 @@ class City(BaseModel, Base):
         name: input name
     """
     # initialize class for file/db storage type
-    if models.storage_type = 'db':
+    if models.storage_type == 'db':
         __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
         state_id = Column(String(60), ForeignKey('states.id'), nullable=False)

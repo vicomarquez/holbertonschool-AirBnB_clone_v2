@@ -12,7 +12,7 @@ class State(BaseModel, Base):
         __tablename__: name of MySQL table
         name: input name
     """
-    if models.storage_type = 'db':
+    if models.storage_type == 'db':
         __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship('City', cascade='all, delete', backref='state')
