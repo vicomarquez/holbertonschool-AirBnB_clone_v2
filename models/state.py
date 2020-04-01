@@ -23,8 +23,8 @@ class State(BaseModel, Base):
         Return: list of cities with state_id equal to self.id
         """
         # return list of City objs in __objects
-        from models.city import City
-        from models.engine import storage
+        # from models.city import City
+        # from models.engine import storage
         cities_dict = storage.all(City)
         cities_list = []
 
