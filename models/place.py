@@ -2,10 +2,20 @@
 """This is the place class"""
 import models
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Float, Integer, ForeignKey
+from sqlalchemy import Column, String, Float, Integer, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
-
+place_amenity = Table('place_amenity',Base.metadata,
+                      Column('place_id', String(60),
+                             ForeignKey('places.id',
+                                        onupdate='cascasde',
+                                        ondelete='cascade'),
+                             primary_key=True)
+                      Column('amenities_id', String(60),
+                             ForeignKey('amenities.id',
+                                        onupdate='cascasde',
+                                        ondelete='cascade'),
+                             primary_key=True))
 class Place(BaseModel, Base):
     """This is the class for Place
     Attributes:
