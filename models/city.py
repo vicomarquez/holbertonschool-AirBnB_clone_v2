@@ -13,16 +13,11 @@ class City(BaseModel, Base):
         name: input name
     """
     # initialize class for file/db storage type
-    if models.storage_type == 'db':
-        __tablename__ = 'cities'
-        name = Column(String(128), nullable=False)
-        state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
-        places = relationship('Place', cascade='all, delete', backref='cities')
+    __tablename__ = 'cities'
+    name = Column(String(128), nullable=False)
+    state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+    places = relationship('Place', cascade='all, delete', backref='cities')
 
-    else:
-        state_id = ""
-        name = ""
-
-    def __init__(self, *args, **kwargs):
-        """ initializes city """
-        super.__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #    """ initializes city """
+    #    super.__init__(*args, **kwargs)
