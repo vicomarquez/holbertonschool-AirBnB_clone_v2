@@ -11,7 +11,9 @@ from os import environ
 # from models.review import Review
 
 # check envirn var to determine storage method
-if environ['HBNB_TYPE_STORAGE'] == 'db':
+storage_type = environ['HBNB_TYPE_STORAGE']
+
+if storage_type == 'db':
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
     storage.reload()
