@@ -5,7 +5,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Float, Integer, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
-place_amenity = Table('place_amenity',Base.metadata,
+place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60),
                              ForeignKey('places.id',
                                         onupdate='cascasde',
@@ -16,6 +16,8 @@ place_amenity = Table('place_amenity',Base.metadata,
                                         onupdate='cascasde',
                                         ondelete='cascade'),
                              primary_key=True))
+
+
 class Place(BaseModel, Base):
     """This is the class for Place
     Attributes:
