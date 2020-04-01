@@ -66,10 +66,10 @@ class HBNBCommand(cmd.Cmd):
             obj.save()  # save storage to file
             print(obj.id)  # print id of created object class
 
-        except ImportError:
+        except SyntaxError:
             print("** class name missing **")
-#        except NameError:
-#            print("** class doesn't exist **")
+        except KeyError:
+            print("** class doesn't exist **")
 
     def do_show(self, line):
         """Prints the string representation of an instance
@@ -122,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
             key = my_list[0] + '.' + my_list[1]
             if key in objects:
                 # del objects[key]
-                storage.delete(self.all_classes[my_list[0]])
+                storage.delete(objects[key])
                 storage.save()
             else:
                 raise KeyError()

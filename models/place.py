@@ -34,7 +34,8 @@ class Place(BaseModel, Base):
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
         amenity_ids = []
-        reviews = relationship('Review', cascade='all, delete', backref='place')
+        reviews = relationship('Review',
+                               cascade='all, delete', backref='place')
 
     else:
         city_id = ""
@@ -48,7 +49,7 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
-        
+
     if models.storage_type != 'db':
         @property
         def reviews(self):
@@ -60,7 +61,7 @@ class Place(BaseModel, Base):
                 if review.place_id == self.id:
                     list_of_reviews.append(review)
             return list_of_reviews
-    
+
     def __init__(self, *args, **kwargs):
         """ initalize Place"""
         super().__init__(*args, **kwargs)
