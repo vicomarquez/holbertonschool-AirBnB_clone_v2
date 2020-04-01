@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Define storage engine using MySQL database
 """
-from os import environ
 from models.base_model import BaseModel, Base
 from models.user import User
 from models.state import State
@@ -12,6 +11,7 @@ from models.review import Review
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import sessionmaker, Session
+from os import environ
 
 all_classes = {'State': State, 'City': City,
                'User': User, 'Place': Place}
@@ -57,13 +57,11 @@ class DBStorage:
                 for row in self.__session.query(val):
                     obj_dict.update({'{}.{}'.
                                     format(type(row).__name__, row.id,): row})
-#        print('obj_dict: {}'.format(obj_dict))
         return obj_dict
 
     def new(self, obj):
         """Add object to current database session
         """
-#        print('DBFs: creating: {}'.format(obj))
         self.__session.add(obj)
 
     def save(self):
