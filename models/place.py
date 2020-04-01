@@ -57,7 +57,3 @@ class Place(BaseModel, Base):
             if review.place_id == self.id:
                 list_of_reviews.append(review)
         return list_of_reviews
-
-    # def __init__(self, *args, **kwargs):
-    #    """ initalize Place"""
-    #    super().__init__(*args, **kwargs)
