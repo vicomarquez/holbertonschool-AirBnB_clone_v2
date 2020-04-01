@@ -50,7 +50,6 @@ class Place(BaseModel, Base):
     @property
     def reviews(self):
         """ getter returns list or reviews """
-        # from models.review import Review
         list_of_reviews = []
         all_reviews = models.strage.all(Review)
         for review in all_reviews.values():
