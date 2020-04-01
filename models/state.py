@@ -16,17 +16,12 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     cities = relationship('City', cascade='all, delete', backref='state')
 
-    # def __init__(self, *args, **kwargs):
-    #    super().__init__(*args, **kwargs)
-
     @property
     def cities(self):
         """Getter method for cities
         Return: list of cities with state_id equal to self.id
         """
         # return list of City objs in __objects
-        # from models.city import City
-        # from models.engine import storage
         cities_dict = storage.all(City)
         cities_list = []
 
