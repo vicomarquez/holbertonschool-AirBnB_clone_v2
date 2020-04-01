@@ -12,3 +12,4 @@ class Amenity(BaseModel, Base):
     """
     __tablename__ = 'amenities'
     name = Column(String(128), cascade='all, delete', nullable=False)
+    place_amenities = relationship('Place', secondary='place_amenity')
