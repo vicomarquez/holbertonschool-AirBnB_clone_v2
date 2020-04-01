@@ -12,30 +12,25 @@ class State(BaseModel, Base):
         __tablename__: name of MySQL table
         name: input name
     """
-    # initialize class for file/db storage type
-    if environ['HBNB_TYPE_STORAGE'] == 'db':
-        __tablename__ = 'states'
+    __tablename__ = 'states'
 
-        name = Column(String(128), nullable=False)
+    name = Column(String(128), nullable=False)
 
-        cities = relationship('City', cascade='all, delete', backref='state')
+    cities = relationship('City', cascade='all, delete', backref='state')
 
-    else:
-        name = ''
+    @property
+    def cities(self):
+        """Getter method for cities
+        Return: list of cities with state_id equal to self.id
+        """
+        # return list of City objs in __objects
+        from models.city import City
+        from models.engine import storage
+        cities_dict = storage.all(City)
+        cities_list = []
 
-        @property
-        def cities(self):
-            """Getter method for cities
-            Return: list of cities with state_id equal to self.id
-            """
-            # return list of City objs in __objects
-            from models.city import City
-            from models.engine import storage
-            cities_dict = storage.all(City)
-            cities_list = []
+        # copy values from dict to list
+        for value in cities_dict.keys():
+            cities_list.append(value)
 
-            # copy values from dict to list
-            for value in cities_dict.keys():
-                cities_list.append(value)
-
-            return cities_list
+        return cities_list
