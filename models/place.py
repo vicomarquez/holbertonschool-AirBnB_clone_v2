@@ -47,7 +47,7 @@ class Place(BaseModel, Base):
     if environ['HBNB_TYPE_STORAGE'] == 'db':
         reviews = relationship('Review',
                                cascade='all, delete', backref='place')
-        amenities = relationship('Amenity',
+        amenities = relationship('Amenity', backref='place_amenities',
                                  secondary='place_amenity',
                                  viewonly=False)
     else:
@@ -67,7 +67,7 @@ class Place(BaseModel, Base):
             list_of_amenities = []
             all_amenities = models.storage.all(Amenity)
             for key, obj in all_amenities.items():
-                if key in amentiy_ids:
+                if key in self.amentiy_ids:
                     list_of_amenities.append(obj)
             return list_of_amenities
 
