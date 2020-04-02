@@ -110,13 +110,13 @@ class TestDBStorageDocs(unittest.TestCase):
         self.assertIsNot(DBStorage.__doc__, None,
                          "DBStorage class needs a docstring")
         self.assertTrue(len(DBStorage.__doc__) >= 1,
-                       "DBStorage class needs a docstring")
+                        "DBStorage class needs a docstring")
 
     def test_dbs_function_docs(self):
         """ test for docstrings in DBStorage methods """
         for func in self.db_functions:
             self.assertIsNot(func[0].__doc__, None,
-                            "{:s} method needs a docsting".format(func[0]))
+                             "{:s} method needs a docsting".format(func[0]))
             self.assertTrue(len(func[0].__doc__), None)
 
     def test_pep8_db_storage(self):
