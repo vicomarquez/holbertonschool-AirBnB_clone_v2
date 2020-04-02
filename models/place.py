@@ -65,7 +65,7 @@ class Place(BaseModel, Base):
         def amenities(self):
             """ getter returns list of amenities """
             list_of_amenities = []
-            all_amenities = models.strage.all(Amenity)
+            all_amenities = models.storage.all(Amenity)
             for key, obj in all_amenities.items():
                 if key in amentiy_ids:
                     list_of_amenities.append(obj)
