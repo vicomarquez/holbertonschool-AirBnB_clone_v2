@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """test for file storage"""
 import unittest
-from unittest import inspect
 import pep8
 import os
 from models.base_model import BaseModel, Base
@@ -11,16 +10,14 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from models.engine import DBStorage
 
 
 class TestDBStorage(unittest.TestCase):
     '''Tests the DBStorage storage engine'''
 
-    
     def setUp(self):
         """SetUp env for test"""
-        # from models.engine.db_storage import DBStorage
+        from models.engine.db_storage import DBStorage
         self.storage = DBStorage()
         self.storage.reload()
 
@@ -38,7 +35,7 @@ class TestDBStorage(unittest.TestCase):
 
     def test_new(self):
         """Test new method"""
-        user = User() 
+        user = User()
         user.id = '12345'
         user.email = "Kevin@hotmail.com"
         user.password = "007"
@@ -85,43 +82,46 @@ class TestDBStorage(unittest.TestCase):
         self.assertTrue('User.54321' in self.storage.all())
 
 
-classes = {"Amenity": Amenity, "City": City, "Place", Place,
+classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
 
 
-class TestDBStorageDocs(unittest.Testcase):
+class TestDBStorageDocs(unittest.TestCase):
     """ tests to chec docstrings in DBStorage class """
 
     @classmethod
-    def setupclass(class):
+    def setUpClass(cls):
         """set up for doc tests"""
-        class.db_functions = getmembers(DBStorage, isfucntion)
+        from inspect import getmembers, isfunction
+        from models.engine.db_storage import DBStorage
+        cls.db_functions = getmembers(DBStorage, isfunction)
 
     def test_db_storage_module_docs(self):
         """ test for docstrings in db_storage.py module """
-        self.assertIsNot(db_storage.__doc__, None,
+        from models.engine.db_storage import DBStorage
+        self.assertIsNot(DBStorage.__doc__, None,
                          "db_storage.py needs a docstring")
-        self.assertTrue(len(db_storage.__doc__) >= 1,
+        self.assertTrue(len(DBStorage.__doc__) >= 1,
                         "db_storage.py neds a docstring")
 
     def test_db_storage_class_docs(self):
         """ test for docstrings in DBStorage class """
+        from models.engine.db_storage import DBStorage
         self.assertIsNot(DBStorage.__doc__, None,
                          "DBStorage class needs a docstring")
-        self.asserTrue(len(DBStorage.__doc__), >= 1,
+        self.assertTrue(len(DBStorage.__doc__) >= 1,
                        "DBStorage class needs a docstring")
 
     def test_dbs_function_docs(self):
         """ test for docstrings in DBStorage methods """
         for func in self.db_functions:
-            self.asserIsNot(func[0].__doc__, None,
+            self.assertIsNot(func[0].__doc__, None,
                             "{:s} method needs a docsting".format(func[0]))
-            self.assertTrue(len(func[0].__doc__), None,
-                            "{:s} method needs a docstring".format(func[0]))
+            self.assertTrue(len(func[0].__doc__), None)
 
     def test_pep8_db_storage(self):
         """test db_storage.py is pep8 compliant """
-        pep8style = pep8.Styleguide(quiet=True)
+        pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(
             ["models/engine/db_storage.py"])
         self.assertEqual(result.total_errors, 0,
@@ -129,9 +129,9 @@ class TestDBStorageDocs(unittest.Testcase):
 
     def test_pep8_test_db_storage(self):
         """ test test_db_storage for pep8 """
-        pep8style = pep8.Styleguide(quiet=True)
+        pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(
-            ["tests/test_models/test_engine/test_db_storage.py"])
+            ["models/engine/db_storage.py"])
         self.assertEqual(
             result.total_errors, 0, "Found code style errors (and warnings).")
 
