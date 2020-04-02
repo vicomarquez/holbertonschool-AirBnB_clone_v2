@@ -1,22 +1,18 @@
 #!/usr/bin/python3
 """This is the place class"""
-import models
-import sqlalchemy
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Float, Integer, ForeignKey, Table
 from sqlalchemy.orm import relationship
+from os import environ
+
 
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60),
-                             ForeignKey('places.id',
-                                        onupdate='cascasde',
-                                        ondelete='cascade'),
-                             primary_key=True)
+                             ForeignKey('places.id'),
+                             primary_key=True, nullable=False),
                       Column('amenity_id', String(60),
-                             ForeignKey('amenities.id',
-                                        onupdate='cascasde',
-                                        ondelete='cascade'),
-                             primary_key=True))
+                             ForeignKey('amenities.id'),
+                             primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -47,19 +43,34 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
-    reviews = relationship('Review',
-                           cascade='all, delete', backref='place')
-    amenities = relationship('Amenity',
-                             secondary='place_amenity',
-                             backref='place_amenity',
-                             viewonly=False)
 
-    @property
-    def reviews(self):
-        """ getter returns list or reviews """
-        list_of_reviews = []
-        all_reviews = models.strage.all(Review)
-        for review in all_reviews.values():
-            if review.place_id == self.id:
-                list_of_reviews.append(review)
-        return list_of_reviews
+    if environ['HBNB_TYPE_STORAGE'] == 'db':
+        reviews = relationship('Review',
+                               cascade='all, delete', backref='place')
+        amenities = relationship('Amenity',
+                                 secondary='place_amenity',
+                                 viewonly=False)
+    else:
+        @property
+        def reviews(self):
+            """ getter returns list or reviews """
+            list_of_reviews = []
+            all_reviews = models.strage.all(Review)
+            for review in all_reviews.values():
+                if review.place_id == self.id:
+                    list_of_reviews.append(review)
+            return list_of_reviews
+
+        @property
+        def amenities(self):
+            """Getter returns list of amenities
+            """
+            return self.amenity_ids
+
+        @amenities.setter
+        def amenities(self, obj=None):
+            """Set amenity_ids
+            """
+            if type(obj).__name__ == 'Amenity':
+                new_amenity = 'Amenity' + '.' + obj.id
+                self.amenity_ids.append(new_amenity)
