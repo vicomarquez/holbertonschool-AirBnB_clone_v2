@@ -39,11 +39,8 @@ class DBStorage:
                                              environ['HBNB_MYSQL_DB']),
                                       pool_pre_ping=True)
         # drop tables if test environment
-        try:
-            if environ['HBNB_ENV'] == 'test':
-                Base.metadata.drop_all(bind=self.__engine)
-        except KeyError:
-            pass
+        if environ['HBNB_TYPE_STORAGE'] == 'test':
+            Base.metadata.drop_all(bind=self.__engine)
 
     def all(self, cls=None):
         """Query and return all objects by class/generally
