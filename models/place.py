@@ -53,7 +53,7 @@ class Place(BaseModel, Base):
     else:
         @property
         def reviews(self):
-            """ getter returns list or reviews """
+            """ getter returns list of reviews """
             list_of_reviews = []
             all_reviews = models.strage.all(Review)
             for review in all_reviews.values():
@@ -63,9 +63,13 @@ class Place(BaseModel, Base):
 
         @property
         def amenities(self):
-            """Getter returns list of amenities
-            """
-            return self.amenity_ids
+            """ getter returns list of amenities """
+            list_of_amenities = []
+            all_amenities = models.strage.all(Amenity)
+            for amenity in all_amenities.values():
+                if Amenity.place_id == self.id:
+                    list_of_amenities.append(amenity)
+            return list_of_amenities
 
         @amenities.setter
         def amenities(self, obj=None):
