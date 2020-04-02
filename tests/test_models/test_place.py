@@ -29,7 +29,7 @@ class TestPlace(unittest.TestCase):
     @classmethod
     def teardown(cls):
         """at the end of the test this will tear it down"""
-        del cls.place
+        cls.place
 
     def tearDown(self):
         """teardown"""
