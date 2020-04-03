@@ -11,7 +11,7 @@ from models.review import Review
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import sessionmaker, Session
-from os import environ
+from os import getenv
 
 all_classes = {'State': State, 'City': City,
                'User': User, 'Place': Place,
@@ -33,17 +33,14 @@ class DBStorage:
         """
         # create engine
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'.
-                                      format(environ['HBNB_MYSQL_USER'],
-                                             environ['HBNB_MYSQL_PWD'],
-                                             environ['HBNB_MYSQL_HOST'],
-                                             environ['HBNB_MYSQL_DB']),
+                                      format(getenv('HBNB_MYSQL_USER'),
+                                             getenv('HBNB_MYSQL_PWD'),
+                                             getenv('HBNB_MYSQL_HOST'),
+                                             getenv('HBNB_MYSQL_DB')),
                                       pool_pre_ping=True)
         # drop tables if test environment
-        try:
-            if environ['HBNB_ENV'] == 'test':
-                Base.metadata.drop_all(bind=self.__engine)
-        except KeyError:
-            pass
+        if getenv('HBNB_ENV') == 'test':
+                Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Query and return all objects by class/generally
