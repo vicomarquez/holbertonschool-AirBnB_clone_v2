@@ -14,11 +14,11 @@ def do_pack():
     # Get current time
     now = datetime.now()
     now = now.strftime('%Y%m%d%H%M%S')
-    archive_path = '~/AirBnB_clone_v2/versions/web_static_' + now + '.tgz'
+    archive_path = 'versions/web_static_' + now + '.tgz'
 
     # Create archive
-    local('mkdir -p ~/AirBnB_clone_v2/versions/')
-    local('tar -czf {} ~/AirBnB_clone_v2/web_static/'.format(archive_path))
+    local('mkdir -p versions/')
+    local('tar -cvzf {} web_static/'.format(archive_path))
 
     # Check if archiving was successful
     if path.isfile(archive_path):
