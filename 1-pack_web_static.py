@@ -3,7 +3,6 @@
 """
 from fabric.api import local
 from datetime import datetime
-from os import path
 
 
 def do_pack():
@@ -18,9 +17,9 @@ def do_pack():
 
     # Create archive
     local('mkdir -p versions/')
-    local('tar -cvzf {} web_static/'.format(archive_path))
+    result = local('tar -cvzf {} web_static/'.format(archive_path))
 
     # Check if archiving was successful
-    if path.isfile(archive_path):
+    if result.succeeded:
         return archive_path
     return None
