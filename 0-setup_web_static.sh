@@ -4,7 +4,6 @@
 # install nginx
 sudo apt-get -y update
 sudo apt-get -y install nginx
-sudo service nginx start
 
 # configure file system
 sudo mkdir -p /data/web_static/shared/
@@ -19,4 +18,4 @@ sudo chown -R ubuntu:ubuntu /data/
 sudo sed -i '/.*rewrite.*/a \\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}' /etc/nginx/sites-available/default
 
 # restart web server
-sudo service nginx restart
+sudo service nginx start
