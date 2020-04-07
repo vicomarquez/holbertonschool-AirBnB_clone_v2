@@ -4,11 +4,12 @@
 # install nginx
 sudo apt-get -y update
 sudo apt-get -y install nginx
+sudo service nginx start
 
 # configure file system
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
-echo "This is a test" | sudo tee /data/web_static/releases/test/index.html > /dev/null
+echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html > /dev/null
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 # set permissions
