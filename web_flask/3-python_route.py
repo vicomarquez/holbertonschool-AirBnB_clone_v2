@@ -27,20 +27,16 @@ def c_is_fun(text):
     """Return reformatted text
     """
     strict_slashes = False
-    return 'C ' + text.replace(' ', '_')
+    return 'C ' + text.replace('_', ' ')
 
 
 @app.route('/python/')
 @app.route('/python/<text>')
-def python_with_text(text=None):
+def python_with_text(text='is cool'):
     """Reformat text based on optional variable
     """
     strict_slashes = False
-
-    if text:
-        return 'Python ' + text.replace(' ', '_')
-    else:
-        return 'Python is cool'
+    return 'Python ' + text.replace('_', ' ')
 
 
 if __name__ == '__main__':
