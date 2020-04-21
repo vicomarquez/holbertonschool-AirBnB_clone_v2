@@ -24,7 +24,7 @@ def hbnb():
 def c_is_fun(text):
     """Return reformatted text
     """
-    return 'C ' + text.replace(' ', '_')
+    return 'C ' + text.replace('_', ' ')
 
 if __name__ == '__main__':
     app.url_map.strict_slashes = False
