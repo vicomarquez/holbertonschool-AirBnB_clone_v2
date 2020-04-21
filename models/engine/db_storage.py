@@ -89,5 +89,11 @@ class DBStorage:
         # create db tables
         session = sessionmaker(bind=self.__engine,
                                expire_on_commit=False)
-        Session = scoped_session(session)
-        self.__session = Session()
+        # previousy:
+        # Session = scoped_session(session)
+        self.__session = scoped_session(session)
+
+    def close(self):
+        """Close scoped session
+        """
+        self.__session.remove()
