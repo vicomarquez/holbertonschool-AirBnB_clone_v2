@@ -10,7 +10,6 @@ app = Flask(__name__)
 def hello():
     """Return string when route queried
     """
-    strict_slashes = False
     return 'Hello HBNB!'
 
 
@@ -18,7 +17,6 @@ def hello():
 def hbnb():
     """Return string when route queried
     """
-    strict_slashes = False
     return 'HBNB'
 
 
@@ -26,7 +24,6 @@ def hbnb():
 def c_is_fun(text):
     """Return reformatted text
     """
-    strict_slashes = False
     return 'C ' + text.replace('_', ' ')
 
 
@@ -35,7 +32,6 @@ def c_is_fun(text):
 def python_with_text(text='is cool'):
     """Reformat text based on optional variable
     """
-    strict_slashes = False
     return 'Python ' + text.replace('_', ' ')
 
 
