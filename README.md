@@ -1,6 +1,8 @@
-# HBNB
+# HBNB Console and Web Infrastucture
 
-This is the console /command interpreter for the Holberton Airbnb clone project. The console can be used to store objects in and retrieve objects from a JSON or from a MySQL database.
+This repo contains a command interpreter for the Holberton Airbnb clone project. The console can be used to store objects in and retrieve objects from a JSON format or from a MySQL database. You'll also find a series of Flask web applications used for dynamic deployment of web content.
+
+Console
 
 ### Supported classes:
 * BaseModel
