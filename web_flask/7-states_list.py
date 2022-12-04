@@ -12,11 +12,11 @@ app = Flask(__name__)
 
 @app.route("/states_list", strict_slashes=False)
 def list():
-    return render_template("7-states_list.html", states=storage.all(State))
+    return render_template("7-states_list.html", states=storage.all('State'))
 
 
 @app.teardown_appcontext
-def close():
+def close(self):
     storage.close()
 
 if __name__ == '__main__':
